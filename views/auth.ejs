@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%-include("components/header") %>
+    <body>
+        <%-include("components/navbar") %>
+
+        <main>
+            <section class="auth__container animation height-70 flex-center">
+                <div class="container">
+                    <div class="auth flex-column-center">
+                        <h3 class="title"><%=title %></h3>
+
+                        <form class="auth__form w-100 flex-column-center" id="<%=title === "Login" ? "loginForm" : "signupForm" %>">    
+                            <% if(title === "Signup") { %>
+                                <input type="text" placeholder="Write your name" name="name" required>
+                            <% } %>
+                            <input type="email" placeholder="Write your email"  name="email" required>
+                            <input type="password" placeholder="Write your password"  name="password" required>
+                            <p class="error text-center" id="error"></p>
+                            <button class="btn btn-primary"><%=title %></button>
+                        </form>
+
+
+                        <div class="auth__bottom text flex">Do you <%=title === "Login" ? "not" : "" %> have account? <a href="<%=title==='Login' ? '/signup' : '/login' %>" class="text text-primary"><%=title==='Login' ? 'Signup' : 'Login' %></a></div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <%-include("components/footer") %>
+    </body>
+</html>

@@ -1,0 +1,14 @@
+<div class="todo__item flex-between">
+    <input type="checkbox" <%=todo.isDone ? 'checked' : ''%> onclick="editTodoStatus('<%= todo.id %>', this.checked)" />
+    <a
+        class="text"
+        <%= todo.isDone ? "style='text-decoration: line-through'" : '' %>
+        href="/profile/<%=todo.id %>"
+    >
+        <%=todo.title %>
+    </a>
+    <div class="buttons">
+        <button class="btn" onclick="editItem('<%=todo.id %>', '<%=todo.title%>')">Edit</button>
+        <button class="btn btn-primary" onclick="deleteItem('<%=todo.id %>')">Delete</button>
+    </div>
+</div>

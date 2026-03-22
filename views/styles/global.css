@@ -1,0 +1,171 @@
+/* ======================================== [Global's] ======================================== */
+:root {
+    --text-color: #fff;
+    --dark-background: #0f103f;
+    --darker-background: #1c1c65;
+    --lightblue-background: rgba(181, 249, 253, 0.42);
+    --gradient-background: linear-gradient(
+        107.21deg,
+        #c961de 24.43%,
+        #2954a3 68.95%
+    );
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+}
+
+ul {
+    list-style-type: none;
+}
+
+input:not([type="checkbox"]) {
+    width: 100%;
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: 0px 10px 20px rgba(7, 7, 26, 0.15);
+    border-radius: 10px;
+    color: var(--text-color);
+    font-size: 15px;
+    outline: none;
+    border: none;
+}
+
+input::placeholder {
+    color: var(--text-color);
+    opacity: 0.8;
+}
+
+/* ======================================== [Classe's] ======================================== */
+
+.container {
+    width: 100%;
+    margin: auto;
+    padding: 0 15px;
+    max-width: 1140px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.title {
+    font-size: 24px;
+    color: var(--text-color);
+}
+.title-big {
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.text {
+    font-size: 16px;
+    color: var(--text-color);
+}
+
+.text-primary {
+    font-weight: 700;
+    position: relative;
+}
+.text-primary::before {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: var(--gradient-background);
+    border-radius: 10px;
+}
+
+.w-100 {
+    width: 100%;
+}
+.height-70 {
+    min-height: 80vh;
+}
+
+.btn {
+    cursor: pointer;
+    font-size: 16px;
+    padding: 13px 45px;
+    border-radius: 30px;
+    box-shadow: 0px 10px 20px rgba(8, 12, 33, 0.15);
+    color: var(--text-color);
+    border: 1px solid transparent;
+    background-image:
+        linear-gradient(var(--darker-background)), var(--gradient-background);
+
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+}
+.btn-primary {
+    border: none;
+    background: var(--gradient-background);
+}
+
+.mt-auto {
+    margin-top: auto;
+}
+
+.animation {
+    animation: loading 0.4s ease-in-out;
+}
+
+.error {
+    color: red;
+    transition: all 0.3s;
+}
+
+/* ======================================== [Flexbox] ======================================== */
+.flex {
+    display: flex;
+    gap: 20px;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-between {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+.flex-column-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    row-gap: 15px;
+}
+
+/* ======================================== [Animation's] ======================================== */
+
+@keyframes loading {
+    0% {
+        opacity: 0.01;
+        filter: blur(12px);
+        transform: translateY(24px);
+    }
+    100% {
+        opacity: 1;
+        filter: blur(0);
+        transform: translateY(0);
+    }
+}
