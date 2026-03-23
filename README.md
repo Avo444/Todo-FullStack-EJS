@@ -1,4 +1,3 @@
-````markdown
 # 📝 Todo App (Fullstack EJS)
 
 A simple and efficient fullstack Todo application built with **Node.js**, **Express**, and **EJS**. The app allows users to register, log in, and manage their personal todos with full CRUD functionality.
