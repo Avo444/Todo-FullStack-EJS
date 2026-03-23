@@ -1,112 +1,119 @@
 # 📝 Todo App (Fullstack EJS)
 
-A simple and efficient fullstack Todo application built with **Node.js**, **Express**, and **EJS**. This app allows users to register, log in, and manage their personal tasks with full CRUD functionality.
+A complete fullstack Todo application built with **Node.js**, **Express**, and **EJS**. The app features a robust authentication system with security measures, personalized user profiles, and a full task management system.
 
 ---
 
 ## 📦 Features
 
-- 🔐 **User Authentication**  
-  Secure registration, login, and logout functionality.
+### 🔐 Security & Auth
+- **User Authentication**: Secure Signup and Login functionality.
+- **Login Protection**: Automatic 15-minute block after 3 failed login attempts to prevent brute-force attacks.
+- **Session Management**: Persistent sessions using a local JSON-based session store.
 
-- 👤 **Personalized Accounts**  
-  Each user has access to their own private todo list.
+### 👤 User Profile & Settings
+- **Personalized Dashboard**: Users can only see and manage their own tasks.
+- **Profile Management**: Update user information (Name, Email, Login).
+- **Password Updates**: Securely change passwords with old password verification.
 
-- 📝 **Todo Management (CRUD)**  
-  - **Create**: Add new tasks  
-  - **Read**: View all tasks (pending & completed)  
-  - **Update**: Edit task content or toggle completion status  
-  - **Delete**: Permanently remove tasks  
-
-- 🛡️ **Data Validation**  
-  Input validation using **Joi** to ensure data integrity.
+### 📝 Task Management (CRUD)
+- **Create**: Add new tasks with automatic timestamping (`createdAt`).
+- **Read**: View a list of your tasks or a detailed view of a specific task.
+- **Update**: Edit task content, toggle completion status (`isDone`), and track `updatedAt`.
+- **Delete**: Permanently remove your own tasks.
 
 ---
 
 ## 🛠️ Tech Stack
 
-- **Runtime**: Node.js  
-- **Framework**: Express.js (v5.2.1)  
-- **View Engine**: EJS (Embedded JavaScript Templates)  
-- **Validation**: Joi  
-- **Environment Variables**: dotenv  
-- **Development Tool**: nodemon  
-
----
-
-## ⚙️ Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/Avo444/Todo-FullStack-EJS.git
-   cd Todo-FullStack-EJS
-    ```
-
-2. **Install dependencies**
-
-   ```bash
-   npm install
-   ```
-
----
-
-## 🔐 Environment Variables
-
-Create a `.env` file in the root directory and add your configuration:
-
-```env
-PORT=3000
-# SESSION_SECRET=your_secret_key_here
-```
-
----
-
-## 🚀 Running the Project
-
-### Development Mode
-
-Start the server with nodemon (auto-restarts on file changes):
-
-```bash
-npm run dev
-```
-
-Once started, open your browser at:
-
-```
-http://localhost:3000
-```
+- **Runtime**: [Node.js](https://nodejs.org/)
+- **Framework**: [Express.js](https://expressjs.com/) (v5.2.1)
+- **View Engine**: [EJS](https://ejs.co/) – Dynamic server-side rendering
+- **Database**: Local JSON files (Users, Todos, Sessions)
+- **Validation**: [Joi](https://joi.dev/) – Schema validation for requests
+- **Environment**: [dotenv](https://www.npmjs.com/package/dotenv) – Environment variables
 
 ---
 
 ## 📁 Project Structure
 
 ```text
-├── middleware/   # Authentication middleware & Joi validation schemas
-├── routes/       # Express routes (Auth, Todos)
-├── views/        # EJS templates
-├── .env          # Environment variables (ignored by Git)
-├── index.js      # Application entry point
+├── db/           # JSON files (users.json, todos.json, session.json)
+├── helpers/      # Utility functions (date formatting, file handling, responses)
+├── middleware/   # Auth guards, session handlers, and Joi schemas
+├── routes/       # API and Page routes (Auth, Todos, Profile, Pages)
+├── views/        # EJS templates and static assets (CSS/JS)
+├── .env          # Environment configuration (PORT)
+├── index.js      # Main server entry point
 └── package.json  # Dependencies and scripts
 ```
 
----
+-----
 
-## 🛣️ Routes Overview
+## ⚙️ Installation & Setup
 
-| Route               | Method        | Description        |
-| ------------------- | ------------- | ------------------ |
-| `/auth/register`    | GET / POST    | User registration  |
-| `/auth/login`       | GET / POST    | User login         |
-| `/todos`            | GET           | Get all user todos |
-| `/todos/add`        | POST          | Create a new todo  |
-| `/todos/delete/:id` | POST / DELETE | Delete a todo      |
+1.  **Clone the repository**:
 
----
+    ```bash
+    git clone [https://github.com/Avo444/Todo-FullStack-EJS.git](https://github.com/Avo444/Todo-FullStack-EJS.git)
+    cd Todo-FullStack-EJS
+    ```
+
+2.  **Install dependencies**:
+
+    ```bash
+    npm install
+    ```
+
+3.  **Configure Environment**:
+    Create a `.env` file in the root:
+
+    ```env
+    PORT=3000
+    ```
+
+-----
+
+## 🚀 Running the Project
+
+To start the server with auto-reload (development mode):
+
+```bash
+npm run dev
+```
+
+Open [http://localhost:3000](https://www.google.com/search?q=http://localhost:3000) in your browser.
+
+-----
+
+## 🛣️ API & Route Overview
+
+### 📄 Page Routes (UI)
+
+| Route | Method | Description |
+| :--- | :--- | :--- |
+| `/` | GET | Home page |
+| `/login` | GET | Login page (Redirects if already logged in) |
+| `/signup` | GET | Signup page |
+| `/profile` | GET | User dashboard with task list |
+| `/profile/:id` | GET | Detailed view of a specific task |
+| `/settings` | GET | User account settings page |
+| `/logout` | GET | Clears session and redirects to login |
+
+### ⚙️ API Routes (Logic)
+
+| Route | Method | Description |
+| :--- | :--- | :--- |
+| `/auth/signup` | POST | Register a new user |
+| `/auth/login` | POST | Authenticate user & manage login attempts |
+| `/api/profile` | PATCH | Update user profile / password |
+| `/api/todo` | GET / POST | Get all tasks or create a new one |
+| `/api/todo/:id`| PATCH / DELETE | Update or remove a specific task |
+
+-----
 
 ## ✨ Author
 
-**Avo**
-GitHub: [https://github.com/Avo444](https://github.com/Avo444)
+**Avo** – [GitHub Profile](https://github.com/Avo444)
 
-```
+-----
