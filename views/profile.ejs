@@ -7,18 +7,23 @@
         <main>  
             <section class="profile_container animation flex-center height-70">
                 <div class="container">
-                    <div class="todo flex-column">
+                    <div class="todo flex-column" >
                         <h1 class="title text-center">Todo</h1>
                         <%-include("components/todoForm") %>
-                        <div class="todo__content flex-column w-100" id="todoContent">
+                        <div class="todo__content text-center text flex-column w-100" id="todoContent">
+                            <% if (!todos.length) { %>
+                            <p>Empty</p>
+                            <% } %>
+
                             <% todos.forEach((todo) => { %>
-                                <%-include("components/todoItem", {todo}) %>
+                                <%- include("components/todoItem", { todo }) %>
                             <% }) %>
                         </div>
                     </div>
                 </div>    
             </section>
         </main>
+        <div class="notification__container flex-column" id="notificationContainer"></div>
 
         <%-include("components/footer") %>
     </body>

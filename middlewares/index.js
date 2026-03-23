@@ -5,6 +5,8 @@ const sessionMiddleware = require("./sessionMiddleware");
 const registerMiddleware = require("./registerMiddleware");
 const postTodoMiddleware = require("./postTodoMiddleware");
 const patchTodoMiddleware = require("./patchTodoMiddleware");
+const patchProfileMiddleware = require("./patchProfileMiddleware");
+
 module.exports = {
     loginMiddleware,
     todosMiddleware,
@@ -13,4 +15,5 @@ module.exports = {
     registerMiddleware,
     postTodoMiddleware,
     patchTodoMiddleware,
+    patchProfileMiddleware,
 };

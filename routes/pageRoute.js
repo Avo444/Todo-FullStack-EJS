@@ -1,9 +1,9 @@
+const { createPath, sendResponse, updateFile } = require("../helpers");
 const {
     sessionMiddleware,
     usersMiddleware,
     todosMiddleware,
 } = require("../middlewares");
-const { createPath, sendResponse, updateFile } = require("../helpers");
 
 const express = require("express");
 const router = express.Router();
@@ -119,10 +119,6 @@ router.get(
                 res.redirect("/login");
             }
 
-            if (!session.id) {
-                throw new Error("You aren't logged in!");
-            }
-
             const todo = todos.find((todo) => todo.id === id);
             if (!todo) {
                 throw new Error("Todo is not found!");
@@ -135,6 +131,33 @@ router.get(
             const data = [
                 createPath("views", "view.ejs"),
                 { title: todo.title, todo },
+            ];
+            sendResponse(res, data, 200, "text/html");
+        } catch (err) {
+            const error = { error: err.message };
+            sendResponse(res, error, 404);
+        }
+    },
+);
+
+router.get(
+    "/settings",
+    sessionMiddleware,
+    usersMiddleware,
+    async (req, res) => {
+        try {
+            const { session, users } = res.locals;
+            if (!session.id) {
+                res.redirect("/login");
+            }
+
+            const user = users.find((user) => user.id === session.id);
+            if (!user) {
+                throw new Error("User is not found!");
+            }
+            const data = [
+                createPath("views", "settings.ejs"),
+                { title: "Settings", user },
             ];
             sendResponse(res, data, 200, "text/html");
         } catch (err) {

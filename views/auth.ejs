@@ -16,7 +16,6 @@
                             <% } %>
                             <input type="email" placeholder="Write your email"  name="email" required>
                             <input type="password" placeholder="Write your password"  name="password" required>
-                            <p class="error text-center" id="error"></p>
                             <button class="btn btn-primary"><%=title %></button>
                         </form>
 
@@ -26,6 +25,7 @@
                 </div>
             </section>
         </main>
+        <div class="notification__container flex-column" id="notificationContainer"></div>
 
         <%-include("components/footer") %>
     </body>

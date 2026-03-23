@@ -90,6 +90,9 @@ input::placeholder {
 .height-70 {
     min-height: 80vh;
 }
+.height-340 {
+    min-height: 340px;
+}
 
 .btn {
     cursor: pointer;
@@ -121,6 +124,14 @@ input::placeholder {
 .error {
     color: red;
     transition: all 0.3s;
+}
+
+.gradient-border {
+    background-image:
+        linear-gradient(var(--darker-background)), var(--gradient-background);
+
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
 }
 
 /* ======================================== [Flexbox] ======================================== */

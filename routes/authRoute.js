@@ -1,10 +1,10 @@
+const { sendResponse, updateFile, createPath } = require("../helpers");
 const {
     registerMiddleware,
     usersMiddleware,
     loginMiddleware,
     sessionMiddleware,
 } = require("../middlewares");
-const { sendResponse, updateFile, createPath } = require("../helpers");
 
 const express = require("express");
 const router = express.Router();
