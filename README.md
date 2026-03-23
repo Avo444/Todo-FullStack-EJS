@@ -40,7 +40,7 @@ A simple and efficient fullstack Todo application built with **Node.js**, **Expr
    ```bash
    git clone https://github.com/Avo444/Todo-FullStack-EJS.git
    cd Todo-FullStack-EJS
-````
+    ```
 
 2. **Install dependencies**
 
@@ -109,12 +109,4 @@ http://localhost:3000
 **Avo**
 GitHub: [https://github.com/Avo444](https://github.com/Avo444)
 
-```
-
----
-
-Եթե ուզես, կարող եմ նաև՝  
-- README-ին badge-ներ ավելացնել (build, license, etc.)  
-- demo GIF կամ screenshots հատված ավելացնել  
-- կամ ավելի “GitHub-ready” պրոֆեսիոնալ դարձնել 🚀
 ```
