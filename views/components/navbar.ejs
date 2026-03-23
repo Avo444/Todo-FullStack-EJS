@@ -5,9 +5,11 @@
 
             <ul class="flex">
                 <% if(!session.id) { %>
-                    <li><a href="/login" class="<%=title === "Login" ? "text-primary active" : "text-primary" %>">Login</a></li>
-                    <li><a href="/signup" class="<%=title === "Signup" ? "text-primary active" : "text-primary" %>">Signup</a></li>
+                    <li><a href="/login" class="<%=title === "Login" ? "active " : "" %>text-primary">Login</a></li>
+                    <li><a href="/signup" class="<%=title === "Signup" ? "active " : "" %>text-primary">Signup</a></li>
                 <% } else { %>
+                    <li><a href="/profile" class="<%=title === "Profile" ? "active " : '' %>text-primary">Profile</a></li>
+                    <li><a href="/settings" class="<%=title === "Settings" ? "active " : '' %>text-primary">Settings</a></li>
                     <li><a href="/logout" class="text-primary">Logout</a></li>
                 <% }%>
             </ul>

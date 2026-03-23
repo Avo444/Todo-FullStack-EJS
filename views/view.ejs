@@ -11,15 +11,15 @@
                         <h1 class="title title-big text-center">Todo: <span class="text text-primary view__title"><%=todo.title%></span></h1>
                         
                         <div class="view__content flex-between w-100" id="todoContent">
-                            <div class="view__item flex-column-center">
+                            <div class="view__item gradient-border flex-column-center">
                                 <p class="title">Completation:</p>
                                 <p class="text" style="color: <%=todo.isDone ? 'green' : 'red' %>"><%=todo.isDone ? "Completed" : "In Process"%></p>
                             </div>
-                            <div class="view__item flex-column-center">
+                            <div class="view__item gradient-border flex-column-center">
                                 <p class="title">Created At:</p>
                                 <p class="text"><%=todo.createdAt %></p>
                             </div>
-                            <div class="view__item flex-column-center">
+                            <div class="view__item gradient-border flex-column-center">
                                 <p class="title">Updated At:</p>
                                 <p class="text"><%=todo.updatedAt ? todo.updatedAt : "Not Updated"%></p>
                             </div>
@@ -28,7 +28,7 @@
                 </div>    
             </section>
         </main>
-
+        <div class="notification__container flex-column" id="notificationContainer"></div>
         <%-include("components/footer") %>
     </body>
 </html>
