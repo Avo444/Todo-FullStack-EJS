@@ -6,6 +6,7 @@ const {
 } = require("../middlewares");
 
 const express = require("express");
+const bcrypt = require("bcryptjs");
 const router = express.Router();
 
 router.patch(
@@ -25,8 +26,21 @@ router.patch(
             if (user === -1) {
                 throw new Error("User is not found");
             }
-            if (body.oldPassword && body.oldPassword !== users[user].password) {
-                throw new Error("Wrong password!");
+            if (body.oldPassword) {
+                const checkPassword = await bcrypt.compare(
+                    body.oldPassword,
+                    users[user].password,
+                );
+                if (!checkPassword) {
+                    throw new Error("Wrong password!");
+                }
+
+                const newPassword = await bcrypt.hash(body.password, 10);
+                if (newPassword) {
+                    body.password = newPassword;
+                } else {
+                    throw new Error("There are was a problem!");
+                }
             }
 
             delete body.oldPassword;
