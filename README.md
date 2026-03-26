@@ -1,119 +1,133 @@
 # 📝 Todo App (Fullstack EJS)
 
-A complete fullstack Todo application built with **Node.js**, **Express**, and **EJS**. The app features a robust authentication system with security measures, personalized user profiles, and a full task management system.
+A complete fullstack Todo application built with **Node.js**, **Express**, and **EJS**. The app features a secure authentication system, personalized user profiles, and full CRUD task management using a local JSON database.
 
 ---
 
 ## 📦 Features
 
 ### 🔐 Security & Auth
+
 - **User Authentication**: Secure Signup and Login functionality.
-- **Login Protection**: Automatic 15-minute block after 3 failed login attempts to prevent brute-force attacks.
-- **Session Management**: Persistent sessions using a local JSON-based session store.
+- **Brute-force Protection**: Users are blocked for **15 minutes** after 3 failed login attempts.
+- **Password Management**: Secure password hashing with `bcryptjs` and old password verification for updates.
+- **Session Management**: Sessions are stored in a local JSON file (`session.json`) to persist login states.
 
 ### 👤 User Profile & Settings
-- **Personalized Dashboard**: Users can only see and manage their own tasks.
-- **Profile Management**: Update user information (Name, Email, Login).
-- **Password Updates**: Securely change passwords with old password verification.
+
+- **Personalized Dashboard**: Users can only view and manage their own tasks.
+- **Profile Update**: Update Name, Email, or Login credentials securely.
+- **Password Update**: Change password by verifying the old password first.
 
 ### 📝 Task Management (CRUD)
-- **Create**: Add new tasks with automatic timestamping (`createdAt`).
-- **Read**: View a list of your tasks or a detailed view of a specific task.
-- **Update**: Edit task content, toggle completion status (`isDone`), and track `updatedAt`.
-- **Delete**: Permanently remove your own tasks.
+
+- **Create Tasks**: Add new tasks with automatic timestamping (`createdAt`).
+- **Read Tasks**: View all tasks or details of a specific task.
+- **Update Tasks**: Edit task content, toggle completion status (`isDone`), and track `updatedAt`.
+- **Delete Tasks**: Permanently remove your tasks.
 
 ---
 
 ## 🛠️ Tech Stack
 
 - **Runtime**: [Node.js](https://nodejs.org/)
-- **Framework**: [Express.js](https://expressjs.com/) (v5.2.1)
-- **View Engine**: [EJS](https://ejs.co/) – Dynamic server-side rendering
-- **Database**: Local JSON files (Users, Todos, Sessions)
-- **Validation**: [Joi](https://joi.dev/) – Schema validation for requests
-- **Environment**: [dotenv](https://www.npmjs.com/package/dotenv) – Environment variables
+- **Framework**: [Express.js](https://expressjs.com/) v5.2.1
+- **View Engine**: [EJS](https://ejs.co/) – server-side templates
+- **Database**: JSON files (`users.json`, `todos.json`, `session.json`)
+- **Validation**: [Joi](https://joi.dev/) – request schema validation
+- **Password Security**: [bcryptjs](https://www.npmjs.com/package/bcryptjs)
+- **Environment Variables**: [dotenv](https://www.npmjs.com/package/dotenv)
 
 ---
 
 ## 📁 Project Structure
 
 ```text
-├── db/           # JSON files (users.json, todos.json, session.json)
-├── helpers/      # Utility functions (date formatting, file handling, responses)
-├── middleware/   # Auth guards, session handlers, and Joi schemas
-├── routes/       # API and Page routes (Auth, Todos, Profile, Pages)
+├── db/           # JSON databases: users.json, todos.json, session.json
+├── helpers/      # Utility functions: file operations, responses, date formatting
+├── middlewares/  # Middleware: authentication, validation, session handling
+├── routes/       # Route handlers: Auth, Todos, Profile
 ├── views/        # EJS templates and static assets (CSS/JS)
 ├── .env          # Environment configuration (PORT)
 ├── index.js      # Main server entry point
 └── package.json  # Dependencies and scripts
 ```
 
------
+---
 
 ## ⚙️ Installation & Setup
 
-1.  **Clone the repository**:
+1. **Clone the repository**:
 
-    ```bash
-    git clone [https://github.com/Avo444/Todo-FullStack-EJS.git](https://github.com/Avo444/Todo-FullStack-EJS.git)
-    cd Todo-FullStack-EJS
-    ```
+```bash
+git clone https://github.com/Avo444/Todo-FullStack-EJS.git
+cd Todo-FullStack-EJS
+```
 
-2.  **Install dependencies**:
+2. **Install dependencies**:
 
-    ```bash
-    npm install
-    ```
+```bash
+npm install
+```
 
-3.  **Configure Environment**:
-    Create a `.env` file in the root:
+3. **Configure Environment**:
 
-    ```env
-    PORT=3000
-    ```
+Create a `.env` file in the root directory:
 
------
+```env
+PORT=3000
+```
+
+---
 
 ## 🚀 Running the Project
 
-To start the server with auto-reload (development mode):
+Start the server in development mode with auto-reload:
 
 ```bash
 npm run dev
 ```
 
-Open [http://localhost:3000](https://www.google.com/search?q=http://localhost:3000) in your browser.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
------
+---
 
 ## 🛣️ API & Route Overview
 
 ### 📄 Page Routes (UI)
 
-| Route | Method | Description |
-| :--- | :--- | :--- |
-| `/` | GET | Home page |
-| `/login` | GET | Login page (Redirects if already logged in) |
-| `/signup` | GET | Signup page |
-| `/profile` | GET | User dashboard with task list |
-| `/profile/:id` | GET | Detailed view of a specific task |
-| `/settings` | GET | User account settings page |
-| `/logout` | GET | Clears session and redirects to login |
+| Route          | Method | Description                                 |
+| :------------- | :----- | :------------------------------------------ |
+| `/`            | GET    | Home page                                   |
+| `/login`       | GET    | Login page (redirects if already logged in) |
+| `/signup`      | GET    | Signup page                                 |
+| `/profile`     | GET    | Dashboard showing user tasks                |
+| `/profile/:id` | GET    | Detailed view of a specific task            |
+| `/settings`    | GET    | Account settings page                       |
+| `/logout`      | GET    | Clears session and redirects to login       |
 
 ### ⚙️ API Routes (Logic)
 
-| Route | Method | Description |
-| :--- | :--- | :--- |
-| `/auth/signup` | POST | Register a new user |
-| `/auth/login` | POST | Authenticate user & manage login attempts |
-| `/api/profile` | PATCH | Update user profile / password |
-| `/api/todo` | GET / POST | Get all tasks or create a new one |
-| `/api/todo/:id`| PATCH / DELETE | Update or remove a specific task |
+| Route           | Method         | Description                                               |
+| :-------------- | :------------- | :-------------------------------------------------------- |
+| `/auth/signup`  | POST           | Register a new user (with password hashing)               |
+| `/auth/login`   | POST           | Authenticate user and manage login attempts/blocking      |
+| `/api/profile`  | PATCH          | Update profile or change password (requires old password) |
+| `/api/todo`     | GET / POST     | Get all tasks or create a new task                        |
+| `/api/todo/:id` | PATCH / DELETE | Update or delete a specific task                          |
 
------
+---
+
+## 💡 Security Notes
+
+- Passwords are hashed using **bcryptjs** before storing.
+- Login attempts are tracked per session; after 3 failed attempts, login is blocked for **15 minutes**.
+- Profile updates require validation and verification of the current password before changing.
+
+---
 
 ## ✨ Author
 
 **Avo** – [GitHub Profile](https://github.com/Avo444)
 
------
+---

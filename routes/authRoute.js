@@ -7,6 +7,7 @@ const {
 } = require("../middlewares");
 
 const express = require("express");
+const bcrypt = require("bcryptjs");
 const router = express.Router();
 
 router.post(
@@ -21,10 +22,11 @@ router.post(
             if (user) {
                 throw new Error("An account with this email already exist!");
             }
-
+            const password = await bcrypt.hash(body.password, 10);
             const newUser = {
                 ...body,
                 id: crypto.randomUUID(),
+                password: password 
             };
             users.push(newUser);
 
@@ -66,7 +68,10 @@ router.post(
             if (!user) {
                 throw new Error("User is not found");
             }
-            if (user.password !== body.password) {
+
+            const checkPassword = await bcrypt.compare(body.password, user.password);
+            
+            if(!checkPassword) {
                 session.wrong++;
                 if (session.wrong === 3) {
                     session.wrong = 0;
@@ -87,6 +92,5 @@ router.post(
         }
     },
 );
-
 
 module.exports = router;
