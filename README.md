@@ -1,78 +1,97 @@
+
+---
+
 # 📝 Todo App (Fullstack EJS)
 
-A complete fullstack Todo application built with **Node.js**, **Express**, and **EJS**. The app features a secure authentication system, personalized user profiles, and full CRUD task management using a local JSON database.
+A complete fullstack Todo application built with **Node.js**, **Express**, and **EJS**, following the **MVC (Model–View–Controller)** architecture. The app includes secure authentication, user profiles, and full CRUD task management using a local JSON database.
 
 ---
 
 ## 📦 Features
 
-### 🔐 Security & Auth
+### 🔐 Security & Authentication
 
-- **User Authentication**: Secure Signup and Login functionality.
-- **Brute-force Protection**: Users are blocked for **15 minutes** after 3 failed login attempts.
-- **Password Management**: Secure password hashing with `bcryptjs` and old password verification for updates.
-- **Session Management**: Sessions are stored in a local JSON file (`session.json`) to persist login states.
+* **User Authentication**: Secure Signup and Login system.
+* **Brute-force Protection**: After 3 failed login attempts, the user is blocked for **15 minutes**.
+* **Password Security**: Passwords are hashed using `bcryptjs`.
+* **Password Update**: Requires verification of the old password.
+* **Session Management**: Sessions are stored in a local `session.json` file.
+
+---
 
 ### 👤 User Profile & Settings
 
-- **Personalized Dashboard**: Users can only view and manage their own tasks.
-- **Profile Update**: Update Name, Email, or Login credentials securely.
-- **Password Update**: Change password by verifying the old password first.
+* **Personal Dashboard**: Users can only access their own tasks.
+* **Profile Updates**: Modify name, email, and password.
+* **Secure Password Change**: Requires old password confirmation.
+
+---
 
 ### 📝 Task Management (CRUD)
 
-- **Create Tasks**: Add new tasks with automatic timestamping (`createdAt`).
-- **Read Tasks**: View all tasks or details of a specific task.
-- **Update Tasks**: Edit task content, toggle completion status (`isDone`), and track `updatedAt`.
-- **Delete Tasks**: Permanently remove your tasks.
+* **Create** → Add new tasks (with automatic `createdAt`)
+* **Read** → View all tasks or a specific task
+* **Update** → Edit task (`isDone`, `updatedAt`)
+* **Delete** → Remove tasks permanently
+
+---
+
+## 🏗️ Architecture (MVC)
+
+The application is structured using the **MVC pattern**:
+
+* **Model (Services)** → Handles business logic and data (`AuthService`, `UserService`, `TodoService`)
+* **View (EJS)** → UI layer (`views/`)
+* **Controller** → Handles request/response flow
+* **Middleware** → Validation and preprocessing (`Joi` schemas)
 
 ---
 
 ## 🛠️ Tech Stack
 
-- **Runtime**: [Node.js](https://nodejs.org/)
-- **Framework**: [Express.js](https://expressjs.com/) v5.2.1
-- **View Engine**: [EJS](https://ejs.co/) – server-side templates
-- **Database**: JSON files (`users.json`, `todos.json`, `session.json`)
-- **Validation**: [Joi](https://joi.dev/) – request schema validation
-- **Password Security**: [bcryptjs](https://www.npmjs.com/package/bcryptjs)
-- **Environment Variables**: [dotenv](https://www.npmjs.com/package/dotenv)
+* **Runtime**: Node.js
+* **Framework**: Express.js (v5)
+* **Template Engine**: EJS
+* **Database**: JSON (file-based)
+* **Validation**: Joi
+* **Password Hashing**: bcryptjs
+* **Environment Variables**: dotenv
 
 ---
 
 ## 📁 Project Structure
 
 ```text
-├── db/           # JSON databases: users.json, todos.json, session.json
-├── helpers/      # Utility functions: file operations, responses, date formatting
-├── middlewares/  # Middleware: authentication, validation, session handling
-├── routes/       # Route handlers: Auth, Todos, Profile
-├── views/        # EJS templates and static assets (CSS/JS)
-├── .env          # Environment configuration (PORT)
-├── index.js      # Main server entry point
-└── package.json  # Dependencies and scripts
+├── db/              # JSON databases (users, todos, session)
+├── controllers/     # Controllers (MVC layer)
+├── services/        # Business logic (Model layer)
+├── routes/          # Express routes
+├── middlewares/     # Validation & request processing
+├── helpers/         # Utility functions
+├── views/           # EJS templates (View layer)
+├── .env             # Environment variables
+├── index.js         # Entry point
+└── package.json
 ```
 
 ---
 
 ## ⚙️ Installation & Setup
 
-1. **Clone the repository**:
+1. **Clone the repository**
 
 ```bash
 git clone https://github.com/Avo444/Todo-FullStack-EJS.git
 cd Todo-FullStack-EJS
 ```
 
-2. **Install dependencies**:
+2. **Install dependencies**
 
 ```bash
 npm install
 ```
 
-3. **Configure Environment**:
-
-Create a `.env` file in the root directory:
+3. **Create `.env` file**
 
 ```env
 PORT=3000
@@ -82,52 +101,64 @@ PORT=3000
 
 ## 🚀 Running the Project
 
-Start the server in development mode with auto-reload:
-
 ```bash
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+Open in your browser:
+👉 [http://localhost:3000](http://localhost:3000)
 
 ---
 
-## 🛣️ API & Route Overview
+## 🛣️ Routes
 
 ### 📄 Page Routes (UI)
 
-| Route          | Method | Description                                 |
-| :------------- | :----- | :------------------------------------------ |
-| `/`            | GET    | Home page                                   |
-| `/login`       | GET    | Login page (redirects if already logged in) |
-| `/signup`      | GET    | Signup page                                 |
-| `/profile`     | GET    | Dashboard showing user tasks                |
-| `/profile/:id` | GET    | Detailed view of a specific task            |
-| `/settings`    | GET    | Account settings page                       |
-| `/logout`      | GET    | Clears session and redirects to login       |
-
-### ⚙️ API Routes (Logic)
-
-| Route           | Method         | Description                                               |
-| :-------------- | :------------- | :-------------------------------------------------------- |
-| `/auth/signup`  | POST           | Register a new user (with password hashing)               |
-| `/auth/login`   | POST           | Authenticate user and manage login attempts/blocking      |
-| `/api/profile`  | PATCH          | Update profile or change password (requires old password) |
-| `/api/todo`     | GET / POST     | Get all tasks or create a new task                        |
-| `/api/todo/:id` | PATCH / DELETE | Update or delete a specific task                          |
+| Route          | Method | Description    |
+| -------------- | ------ | -------------- |
+| `/`            | GET    | Home page      |
+| `/login`       | GET    | Login page     |
+| `/signup`      | GET    | Signup page    |
+| `/profile`     | GET    | User dashboard |
+| `/profile/:id` | GET    | Task details   |
+| `/settings`    | GET    | Settings page  |
+| `/logout`      | GET    | Logout         |
 
 ---
 
-## 💡 Security Notes
+### ⚙️ API Routes
 
-- Passwords are hashed using **bcryptjs** before storing.
-- Login attempts are tracked per session; after 3 failed attempts, login is blocked for **15 minutes**.
-- Profile updates require validation and verification of the current password before changing.
+| Route           | Method         | Description           |
+| --------------- | -------------- | --------------------- |
+| `/auth/signup`  | POST           | Register user         |
+| `/auth/login`   | POST           | Login with protection |
+| `/api/profile`  | PATCH          | Update profile        |
+| `/api/todo`     | GET / POST     | Get / Create todos    |
+| `/api/todo/:id` | PATCH / DELETE | Update / Delete todo  |
+
+---
+
+## 🧠 Key Improvements (MVC)
+
+* 🔹 Clear separation of concerns (Controller / Service layers)
+* 🔹 Middleware-based validation using Joi
+* 🔹 Reusable helper utilities
+* 🔹 Scalable and maintainable structure
+* 🔹 Clean and modular architecture
+
+---
+
+## 🔒 Security Notes
+
+* Password hashing with `bcryptjs`
+* Login attempt limiting (3 attempts → temporary block)
+* Session-based authorization
+* Request validation using Joi
 
 ---
 
 ## ✨ Author
 
-**Avo** – [GitHub Profile](https://github.com/Avo444)
+**Avo** – [https://github.com/Avo444](https://github.com/Avo444)
 
 ---
