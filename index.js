@@ -11,7 +11,6 @@ const todoService = new TodoService();
 
 app.locals.services = {
     auth: authService,
-
     user: userService,
     todo: todoService,
 };

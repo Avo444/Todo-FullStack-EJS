@@ -3,7 +3,7 @@ const { sendResponse, createPath } = require("../helpers");
 class PageController {
     async home(req, res) {
         try {
-            const session = await req.app.locals.services.page.session();
+            const session = await req.app.locals.services.auth.session();
             sendResponse(
                 res,
                 [
@@ -21,7 +21,7 @@ class PageController {
 
     async login(req, res) {
         try {
-            const session = await req.app.locals.services.page.session();
+            const session = await req.app.locals.services.auth.session();
             if (session.id) {
                 return res.redirect("/profile");
             }
@@ -38,7 +38,7 @@ class PageController {
 
     async signup(req, res) {
         try {
-            const session = await req.app.locals.services.page.session();
+            const session = await req.app.locals.services.auth.session();
             if (session.id) {
                 return res.redirect("/profile");
             }
@@ -55,7 +55,7 @@ class PageController {
 
     async logout(req, res) {
         try {
-            const session = await req.app.locals.services.page.session();
+            const session = await req.app.locals.services.auth.session();
             if (!session.id) {
                 res.redirect("/");
             }
